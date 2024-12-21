@@ -4,7 +4,9 @@ Sharify is a web app that lets users generate visually stunning, sharable graphi
 ---
 
 ## Small Note
+I'm a high school student from Sri Lanka who decided to take on this challenge. I've always wanted a way to share Spotify songs with a nice image. Up until now, I just shared a screenshot or the URL, but I created this app so I could share a more visually appealing graphic along with a Spotify code. There's still a lot to develop, but given the time I had and my lack of experience or knowledge, I think this is a great project no matter what. After all, it solved a problem in my life, and that's what matters.
 
+PS: Hi! JSM Team! Thank you for all those great to understand free tutorials
 
 ---
 
