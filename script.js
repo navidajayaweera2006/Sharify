@@ -15,6 +15,8 @@ const DOM = {
         this.downloadBtn = document.getElementById('download-btn');
         this.shareBtn = document.getElementById('share-btn');
         this.watermarkToggle = document.getElementById('watermark-toggle');
+        this.customWatermarkToggle = document.getElementById('custom-watermark-toggle');
+        this.customWatermarkInput = document.getElementById('custom-watermark-input');
         this.watermark = document.getElementById('watermark');
         this.graphic = document.getElementById('graphic');
         this.loader = document.getElementById('loader-container');
@@ -163,7 +165,6 @@ class GraphicGenerator {
 
     static async shareGraphic() {
         try {
-
             const originalBorderRadius = DOM.graphic.style.borderRadius;
             DOM.graphic.style.borderRadius = '0';
 
@@ -220,34 +221,73 @@ class App {
         DOM.regenerateBtn.addEventListener('click', () => this.handleRegeneration());
         DOM.downloadBtn.addEventListener('click', () => this.handleDownload());
         DOM.shareBtn.addEventListener('click', () => GraphicGenerator.shareGraphic());
+        
+        // Watermark toggles and custom watermark handlers
         DOM.watermarkToggle.addEventListener('change', (e) => {
-            DOM.watermark.style.display = e.target.checked ? 'none' : 'block';
+            if (!DOM.customWatermarkToggle.checked) {
+                DOM.watermark.style.display = e.target.checked ? 'none' : 'block';
+            }
+        });
+
+        DOM.customWatermarkToggle.addEventListener('change', (e) => {
+            const isCustom = e.target.checked;
+            DOM.customWatermarkInput.style.display = isCustom ? 'block' : 'none';
+            DOM.watermarkToggle.disabled = isCustom;
+            
+            if (!isCustom) {
+                // Reset to default watermark
+                DOM.watermark.textContent = 'navida.design';
+                DOM.watermark.style.display = DOM.watermarkToggle.checked ? 'none' : 'block';
+            }
+        });
+
+        DOM.customWatermarkInput.addEventListener('input', (e) => {
+            const customText = e.target.value.trim();
+            DOM.watermark.textContent = customText || 'navida.design';
+        });
+
+        DOM.customWatermarkInput.addEventListener('blur', () => {
+            if (DOM.graphic.style.display === 'flex') {
+                this.handleGeneration(true);
+            }
         });
     }
 
-    static async handleGeneration() {
-        DOM.loader.style.display = 'flex';
-        const startTime = Date.now();
-        const trackId = SpotifyAPI.getTrackId(DOM.urlInput.value);
-        
-        if (!trackId) {
-            alert('Invalid Spotify URL');
-            DOM.loader.style.display = 'none';
-            return;
-        }
-
-        try {
-            const trackInfo = await SpotifyAPI.getTrackInfo(trackId);
+    static async handleGeneration(isWatermarkUpdate = false) {
+        if (!isWatermarkUpdate) {
+            DOM.loader.style.display = 'flex';
+            const startTime = Date.now();
+            const trackId = SpotifyAPI.getTrackId(DOM.urlInput.value);
             
-            const elapsedTime = Date.now() - startTime;
-            if (elapsedTime < CONFIG.MIN_LOADING_TIME) {
-                await new Promise(resolve => setTimeout(resolve, CONFIG.MIN_LOADING_TIME - elapsedTime));
+            if (!trackId) {
+                alert('Invalid Spotify URL');
+                DOM.loader.style.display = 'none';
+                return;
             }
-            
-            await GraphicGenerator.updateGraphic(trackInfo);
-        } catch (error) {
-            alert('Failed to fetch track information');
-            DOM.loader.style.display = 'none';
+
+            try {
+                const trackInfo = await SpotifyAPI.getTrackInfo(trackId);
+                
+                const elapsedTime = Date.now() - startTime;
+                if (elapsedTime < CONFIG.MIN_LOADING_TIME) {
+                    await new Promise(resolve => setTimeout(resolve, CONFIG.MIN_LOADING_TIME - elapsedTime));
+                }
+                
+                await GraphicGenerator.updateGraphic(trackInfo);
+            } catch (error) {
+                alert('Failed to fetch track information');
+                DOM.loader.style.display = 'none';
+            }
+        } else {
+            // Just update the watermark visibility and text
+            if (DOM.customWatermarkToggle.checked) {
+                const customText = DOM.customWatermarkInput.value.trim();
+                DOM.watermark.textContent = customText || 'navida.design';
+                DOM.watermark.style.display = 'block';
+            } else {
+                DOM.watermark.textContent = 'navida.design';
+                DOM.watermark.style.display = DOM.watermarkToggle.checked ? 'none' : 'block';
+            }
         }
     }
 

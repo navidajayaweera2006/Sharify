@@ -8,6 +8,8 @@ body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     min-height: 100vh;
     overflow-x: hidden;
+    background-color: #121212;
+    color: #ffffff;
 }
 
 .app-container {
@@ -24,17 +26,18 @@ body {
     flex-direction: column;
     gap: 12px;
     min-width: 300px;
-    background-color: rgb(236, 255, 241);
+    background-color: #171a18;
 }
 
 h1 {
-    padding-top: 100px;
+    padding-top: 86px;
     font-size: clamp(36px, 5vw, 32px);
     font-weight: bold;
+    color: #ffffff;
 }
 
 .subtext {
-    color: #454545;
+    color: #a0a0a0;
     line-height: 1.5;
     margin-top: 20px;
     margin-bottom: 20px;
@@ -42,7 +45,7 @@ h1 {
 }
 
 .enter-url {
-    color: #333;
+    color: #ffffff;
     margin-bottom: 20px;
     font-size: clamp(14px, 3vw, 16px);
     font-weight: bold;
@@ -53,53 +56,55 @@ h1 {
     padding: 15px 20px;
     border: none;
     border-radius: 30px;
-    background-color: #dbe8dee1;
+    background-color: #2d2d2d;
     font-size: clamp(12px, 2vw, 14px);
     margin-bottom: 0px;
-    color: #666;
+    color: #ffffff;
+    transition: all 0.3s ease;
+}
+
+#spotify-url:focus {
+    outline: none;
+    background-color: #333333;
 }
 
 #spotify-url:disabled {
     opacity: 0.6;
     cursor: not-allowed;
-    background-color: #d0d0d0;
+    background-color: #252525;
 }
-
 
 .button-group {
     display: flex;
     gap: 10px;
-    margin-bottom: 48px;
+    margin-bottom: 40px;
     flex-wrap: wrap;
 }
 
 .btn {
     opacity: 1;
-    transition: opacity 0.3s ease, background-color 0.3s;
+    transition: all 0.3s ease;
     padding: 12px 30px;
     border: none;
     border-radius: 25px;
-    background-color: #e0e0e0;
+    background-color: #2d2d2d;
     cursor: pointer;
     font-size: clamp(12px, 2vw, 14px);
-    transition: background-color 0.3s;
-}
-
-#generate-btn {
-    transition: opacity 0.3s ease;
+    color: #ffffff;
 }
 
 .btn:hover {
-    background-color: #ffffff;
+    background-color: #1DB954;
 }
 
 /* Toggle Switch */
 .toggle-container {
     display: flex;
     align-items: center;
-    gap: 10px;
-    margin-bottom: 20px;
+    gap: 20px;
+    margin-bottom: 8px;
     font-size: clamp(12px, 2vw, 14px);
+    color: #a0a0a0;
 }
 
 .switch {
@@ -122,7 +127,7 @@ h1 {
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: #ccc;
+    background-color: #2d2d2d;
     transition: .4s;
     border-radius: 34px;
 }
@@ -140,29 +145,59 @@ h1 {
 }
 
 input:checked + .slider {
-    background-color: #666;
+    background-color: #1DB954;
 }
 
 input:checked + .slider:before {
     transform: translateX(26px);
 }
 
+/* Set Custon Watermark */
+
+#custom-watermark-input {
+    width: 100%;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 25px;
+    background-color: #2d2d2d;
+    font-size: clamp(12px, 2vw, 14px);
+    color: #ffffff;
+    margin-top: 12px;
+    transition: all 0.3s ease;
+    display: none;
+}
+
+#custom-watermark-input:focus {
+    outline: none;
+    background-color: #333333;
+}
+
+#custom-watermark-input::placeholder {
+    color: #666666;
+}
+
+.feedback-link {
+    color: inherit;
+    text-decoration: none;
+    border-bottom: 1px solid #a0a0a0;
+}
+
 .dev {
     margin-top: auto;
-    color: #666;
+    color: #a0a0a0;
     font-size: clamp(12px, 2vw, 14px);
 }
 
 .dev-link {
     color: inherit;
     text-decoration: none;
-    border-bottom: 1px solid #666;
+    border-bottom: 1px solid #a0a0a0;
 }
 
 /* Right Section Styles */
 .preview-section {
     flex: 1;
-    background-color: #000000;
+    background-color: #001002;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -174,7 +209,7 @@ input:checked + .slider:before {
 .graphic-container {
     width: 100%;
     max-width: 400px;
-    background-color: #F5CAC3;
+    background-color: #1e1e1e;
     border-radius: 20px;
     padding: 20px;
     display: flex;
@@ -200,10 +235,11 @@ input:checked + .slider:before {
     font-size: clamp(18px, 4vw, 24px);
     margin-bottom: 5px;
     word-wrap: break-word;
+    color: #ffffff;
 }
 
 .artist-name {
-    color: #666;
+    color: #a0a0a0;
     font-size: clamp(14px, 3vw, 16px);
     word-wrap: break-word;
 }
@@ -216,7 +252,7 @@ input:checked + .slider:before {
 
 .watermark {
     font-size: clamp(10px, 2vw, 12px);
-    color: #666;
+    color: #a0a0a0;
     margin-top: 10px;
 }
 
@@ -226,7 +262,7 @@ input:checked + .slider:before {
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0, 0, 0, 1);
+    background-color: rgba(0, 0, 0, 0.9);
     z-index: 1000;
     display: flex;
     justify-content: center;
@@ -262,7 +298,7 @@ input:checked + .slider:before {
     position: absolute;
     bottom: 48px;
     right: 48px;
-    background-color: rgb(186, 186, 186);
+    background-color: #2d2d2d;
     border-radius: 50%;
     width: 60px;
     height: 60px;
@@ -274,14 +310,14 @@ input:checked + .slider:before {
 }
 
 #share-btn:hover {
-    background-color: rgb(255, 255, 255);
+    background-color: #1DB954;
 }
 
 #share-btn svg {
     margin-left: -10px;
     width: 20px;
     height: 20px;
-    stroke: currentColor;
+    stroke: #ffffff;
 }
 
 /* Responsive Design */
@@ -290,21 +326,34 @@ input:checked + .slider:before {
         flex-direction: column;
     }
     
-    .input-section, .preview-section {
+    .left-section, .preview-section {
         width: 100%;
-        padding: 20px;
+        min-width: auto;
+        padding: 24px;
     }
     
     .preview-section {
         min-height: 60vh;
     }
     
+    h1 {
+        padding-top: 20px;
+    }
+    
     .button-group {
+        flex-direction: column;
+    }
+    
+    .btn {
+        width: 100%;
+    }
+
+    #regenerate-btn {
         justify-content: center;
     }
     
-    .credit {
-        text-align: center;
-        margin: 20px 0;
+    #share-btn {
+        bottom: 24px;
+        right: 24px;
     }
 }
