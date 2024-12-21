@@ -342,10 +342,18 @@ input:checked + .slider:before {
     
     .button-group {
         flex-direction: column;
+        margin-bottom: 20px;
     }
     
     .btn {
         width: 100%;
+    }
+
+    .toggle-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 20px;
     }
 
     #regenerate-btn {
